@@ -1,0 +1,172 @@
+﻿<Window x:Class="GarmApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GarmApp"
+        xmlns:view="clr-namespace:GarmApp.View"
+        xmlns:utility="clr-namespace:GarmApp.Utility"
+        xmlns:vm="clr-namespace:GarmApp.ViewModel"
+        mc:Ignorable="d"
+        Title="GarmApp"
+        Height="450"
+        Width="800"
+        DataContext="{Binding MainVM, Source={StaticResource locator}}"
+        FontFamily="Segoe UI Light"
+        FontSize="13"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <ResourceDictionary>
+
+            <local:FileViewDataTemplateSelector x:Key="fileViewTemplateSelector">
+                <local:FileViewDataTemplateSelector.SoundLevelMeterDataTemplate>
+                    <DataTemplate>
+                        <view:SoundLevelMeterView Grid.Row="0"
+                                                  Grid.Column="0"
+                                                  DataContext="{Binding SoundLevelMeterVM, Source={StaticResource locator}}">
+                        </view:SoundLevelMeterView>
+                    </DataTemplate>
+                </local:FileViewDataTemplateSelector.SoundLevelMeterDataTemplate>
+
+                <local:FileViewDataTemplateSelector.ExtechVibrationMeterDataTemplate>
+                    <DataTemplate>
+                        <view:ExtechVibrationMeterView Grid.Row="0"
+                                                  Grid.Column="0"
+                                                  DataContext="{Binding ExtechVibrationMeterVM, Source={StaticResource locator}}">
+                        </view:ExtechVibrationMeterView>
+                    </DataTemplate>
+                </local:FileViewDataTemplateSelector.ExtechVibrationMeterDataTemplate>
+            </local:FileViewDataTemplateSelector>
+
+            <ObjectDataProvider MethodName="GetValues"
+                                ObjectType="{x:Type utility:EnumerationManager}"
+                                x:Key="fileTypes">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="vm:FileType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <Style x:Key="ClearButtonStyle"
+                   TargetType="{x:Type Button}">
+                <Setter Property="Margin"
+                        Value="3,0,20,0" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Content"
+                        Value="X" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="FontSize"
+                        Value="14px" />
+                <Setter Property="FontFamily"
+                        Value="Comic Sans MS" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="FontWeight"
+                        Value="ExtraBold" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="Transparent">
+                                <ContentPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver"
+                             Value="True">
+                        <Setter Property="FontSize"
+                                Value="15px" />
+                        <Setter Property="Foreground"
+                                Value="OrangeRed" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="5"
+            BorderThickness="10">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="White" />
+        </Border.BorderBrush>
+
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+
+            </Grid.RowDefinitions>
+
+            <Button Name="CloseButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource ClearButtonStyle}"
+                    Click="CloseButton_Click"
+                    Cursor="Hand" />
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Grid.Column="1"
+                        Grid.Row="1">
+                <Image Height="140"
+                       Source="/Resources/appLogo.png" />
+                <Image Height="30"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Source="/Resources/FESBUNIST.jpg" />
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Select file type to convert:"
+                           HorizontalAlignment="Center" />
+                <ComboBox Height="25"
+                          Width="180"
+                          HorizontalAlignment="Center"
+                          ItemsSource="{Binding Source={StaticResource fileTypes}}"
+                          DisplayMemberPath="Value"
+                          SelectedValuePath="Key"
+                          SelectedValue="{Binding SelectedFileType}" />
+            </StackPanel>
+
+            <Grid Grid.Row="3"
+                  Grid.ColumnSpan="2"
+                  Grid.Column="1">
+                <ContentControl Content="{Binding SelectedFileType}"
+                                ContentTemplateSelector="{StaticResource fileViewTemplateSelector}" />
+            </Grid>
+
+            <Button Grid.Row="4"
+                    Margin="5"
+                    Grid.Column="1"
+                    FontSize="14"
+                    Height="30"
+                    Width="130"
+                    Content="Convert And Save"
+                    Command="{Binding SaveFileCommand}" />
+
+        </Grid>
+    </Border>
+</Window>

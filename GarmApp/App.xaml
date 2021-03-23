@@ -1,0 +1,12 @@
+﻿<Application x:Class="GarmApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GarmApp"
+             xmlns:vm="clr-namespace:GarmApp.ViewModel"
+             StartupUri="View/MainView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <vm:ViewModelLocator x:Key="locator" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>appIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\appLogo.png" />
+    <None Remove="Resources\extechVibrationMeterIcon.png" />
+    <None Remove="Resources\FESBUNIST.jpg" />
+    <None Remove="Resources\soundLevelMeterIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\appLogo.png" />
+    <Resource Include="Resources\extechVibrationMeterIcon.png" />
+    <Resource Include="Resources\FESBUNIST.jpg" />
+    <Resource Include="Resources\soundLevelMeterIcon.png" />
+  </ItemGroup>
+
+</Project>
