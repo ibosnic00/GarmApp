@@ -1,10 +1,12 @@
-![](https://github.com/ibosnic00/GarmApp/blob/main/GarmApp/Resources/appLogo.png?raw=true)
+![AppLogo](/GarmApp/Resources/appLogo.png)
 
 # GarmApp
 
 ***
 *This is .NET GUI application (WPF) which is used to convert log files from different devices to unified format* 
 ___
+
+![Demo](/GarmApp/Resources/demo.gif)
 
 ## Prerequisites
 Visual Studio 2017 or newer
